@@ -41,7 +41,11 @@ fn build_tree_line(text: &str) -> Vec<u32> {
         .collect()
 }
 
-fn check_visibility_and_score(trees: &[Vec<u32>], row_index: usize, col_index: usize) -> (bool, u32) {
+fn check_visibility_and_score(
+    trees: &[Vec<u32>],
+    row_index: usize,
+    col_index: usize,
+) -> (bool, u32) {
     let tree_height: u32 = trees[row_index][col_index];
     let tree_row = &trees[row_index];
     let tree_col: Vec<u32> = trees.iter().map(|tree_row| tree_row[col_index]).collect();
@@ -51,7 +55,10 @@ fn check_visibility_and_score(trees: &[Vec<u32>], row_index: usize, col_index: u
     let (up_vis, up_score) = get_score_left(tree_height, &tree_col[..row_index]);
     let (down_vis, down_score) = get_score_right(tree_height, &tree_col[row_index + 1..]);
 
-    (left_vis || right_vis || up_vis || down_vis, left_score * right_score * up_score * down_score)
+    (
+        left_vis || right_vis || up_vis || down_vis,
+        left_score * right_score * up_score * down_score,
+    )
 }
 
 fn get_score_left(tree_height: u32, trees: &[u32]) -> (bool, u32) {
