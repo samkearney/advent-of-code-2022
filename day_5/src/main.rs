@@ -41,7 +41,7 @@ fn execute_move_order(order: &str, pads: &mut [VecDeque<char>]) {
     let mut tokens = order.split(' ');
 
     tokens.next();
-    let count: i32 = tokens.next().unwrap().parse().unwrap();
+    let count: usize = tokens.next().unwrap().parse().unwrap();
 
     tokens.next();
     let src: usize = tokens.next().unwrap().parse().unwrap();
@@ -49,8 +49,8 @@ fn execute_move_order(order: &str, pads: &mut [VecDeque<char>]) {
     tokens.next();
     let dest: usize = tokens.next().unwrap().parse().unwrap();
 
-    for _ in 0..count {
-        let crate_id = pads[src - 1].pop_front().unwrap();
+    let crate_stack: String = pads[src - 1].drain(..count).rev().collect();
+    for crate_id in crate_stack.chars() {
         pads[dest - 1].push_front(crate_id);
     }
 }
