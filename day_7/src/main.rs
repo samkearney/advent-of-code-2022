@@ -69,7 +69,10 @@ fn main() {
         }
     });
 
-    println!("Size of smallest suitable directory: {}", smallest_suitable_dir);
+    println!(
+        "Size of smallest suitable directory: {}",
+        smallest_suitable_dir
+    );
 }
 
 fn for_each_dir_in_tree(dir: &DirEntry, pred: &mut impl FnMut(usize)) {
