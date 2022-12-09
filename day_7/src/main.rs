@@ -138,13 +138,13 @@ fn calc_size(dir: &DirEntry) -> usize {
 }
 
 fn calc_size_files(dir: &DirEntry) -> usize {
-    dir.files.iter().map(|(_, size)| size).sum()
+    dir.files.values().sum()
 }
 
 fn calc_size_subdirs(dir: &DirEntry) -> usize {
     dir.subdirs
-        .iter()
-        .fold(0, |accum, (_, entry)| accum + calc_size(entry))
+        .values()
+        .fold(0, |accum, entry| accum + calc_size(entry))
 }
 
 #[cfg(test)]
