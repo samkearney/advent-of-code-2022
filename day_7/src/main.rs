@@ -79,7 +79,7 @@ fn for_each_dir_in_tree(dir: &DirEntry, pred: &mut impl FnMut(usize)) {
     let total = calc_size_files(dir) + calc_size_subdirs(dir);
     pred(total);
 
-    for (_, dir_entry) in &dir.subdirs {
+    for dir_entry in dir.subdirs.values() {
         for_each_dir_in_tree(dir_entry, pred);
     }
 }
@@ -134,7 +134,7 @@ fn try_add_subdir(dir: &mut DirEntry, subdir_name: &str) {
 }
 
 fn calc_size(dir: &DirEntry) -> usize {
-    calc_size_files(&dir) + calc_size_subdirs(&dir)
+    calc_size_files(dir) + calc_size_subdirs(dir)
 }
 
 fn calc_size_files(dir: &DirEntry) -> usize {
@@ -144,7 +144,7 @@ fn calc_size_files(dir: &DirEntry) -> usize {
 fn calc_size_subdirs(dir: &DirEntry) -> usize {
     dir.subdirs
         .iter()
-        .fold(0, |accum, (_, entry)| accum + calc_size(&entry))
+        .fold(0, |accum, (_, entry)| accum + calc_size(entry))
 }
 
 #[cfg(test)]
